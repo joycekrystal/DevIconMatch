@@ -4,12 +4,12 @@ import './App.css';
 import SingleCard from './components/SingleCard';
 
 const cardImages = [
-    { "src": "/img/helmet-1.png" },
-    { "src": "/img/potion-1.png" },
-    { "src": "/img/ring-1.png" },
-    { "src": "/img/scroll-1.png" },
-    { "src": "/img/shield-1.png" },
-    { "src": "/img/sword-1.png" },
+ { "src": "/img/python-1.png" },
+    { "src": "/img/javascript-1.png" },
+    { "src": "/img/java-1.png" },
+    { "src": "/img/cplus-1.png" },
+    { "src": "/img/ruby-1.png" },
+    { "src": "/img/swift-1.png" },   
 ];
 
 function App() {

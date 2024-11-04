@@ -1,0 +1,11 @@
+{
+  "name": "deviconmatch",
+  "version": "1.0.0",
+  "description": "A fun and interactive memory game built with ReactJS, featuring logos of popular programming languages! Match pairs of language icons to improve your memory while exploring the world of coding. Perfect for developers, learners, and tech enthusiasts looking to test their recall skills with a coding twist.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
