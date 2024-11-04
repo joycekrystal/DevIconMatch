@@ -4,12 +4,12 @@ import './App.css';
 import SingleCard from './components/SingleCard';
 
 const cardImages = [
- { "src": "/img/python-1.png" },
-    { "src": "/img/javascript-1.png" },
-    { "src": "/img/java-1.png" },
-    { "src": "/img/cplus-1.png" },
-    { "src": "/img/ruby-1.png" },
-    { "src": "/img/swift-1.png" },   
+    { "src": "/img/python-1.svg" },
+    { "src": "/img/javascript-1.svg" },
+    { "src": "/img/java-1.svg" },
+    { "src": "/img/cplus-1.svg" },
+    { "src": "/img/ruby-1.svg" },
+    { "src": "/img/swift-1.svg" },   
 ];
 
 function App() {
@@ -73,7 +73,7 @@ function App() {
     return (
         <div className="App">
             <h1>Dev Icon Match</h1>
-            <button onClick={shuffleCards}>Start</button>
+            <button onClick={shuffleCards}>Start a new game</button>
             <div className="card-grid">
                 {cards.map(card => (
                     <SingleCard
