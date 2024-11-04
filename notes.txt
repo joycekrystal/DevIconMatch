@@ -1,22 +1,22 @@
 NOV 3 : CHECKLIST:
 
-Fix node version
+Fix node version /done
 update node to latest
 
 Update UI
-    Typography
-    Images
+    Typography /done
+    Images /done
 
 Add
-    Sound
-        1 for matches
-        1 for mismatches
-        1 for flipping cards
+    Sound /done
+        1 for matches /done
+        1 for mismatches /done
+        1 for flipping cards /done
         1 for winning the game
-        1 for starting the game
+        1 for starting the game /done
     
-    Timer
-    Animation
+ 
+    Animation /done
 
 
 

@@ -1,7 +1,11 @@
-// App.js
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import SingleCard from './components/SingleCard';
+import matchSound from './sounds/match.mp3';
+import mismatchSound from './sounds/mismatch.mp3';
+import flipSound from './sounds/flip.mp3';
+import winSound from './sounds/win.mp3';
+import startSound from './sounds/start.mp3';
 
 const cardImages = [
     { "src": "/img/python-1.svg" },
@@ -9,8 +13,16 @@ const cardImages = [
     { "src": "/img/java-1.svg" },
     { "src": "/img/cplus-1.svg" },
     { "src": "/img/ruby-1.svg" },
-    { "src": "/img/swift-1.svg" },   
+    { "src": "/img/swift-1.svg" },
 ];
+
+const audio = {
+    match: new Audio(matchSound),
+    mismatch: new Audio(mismatchSound),
+    flip: new Audio(flipSound),
+    win: new Audio(winSound),
+    start: new Audio(startSound),
+};
 
 function App() {
     const [cards, setCards] = useState([]);
@@ -20,26 +32,34 @@ function App() {
     const [flippedCards, setFlippedCards] = useState([]);
 
     // Shuffle cards
-    const shuffleCards = () => {
+    const shuffleCards = useCallback(() => {
         const shuffledCards = [...cardImages, ...cardImages]
             .sort(() => Math.random() - 0.5)
             .map((card) => ({ ...card, id: Math.random() }));
 
         setCards(shuffledCards);
+        resetGame();
+        audio.start.play(); // Play start game sound
+    }, []); // No dependencies, as it doesn't rely on any state or props
+
+    // Reset game state
+    const resetGame = () => {
         setTurns(0);
         setChoiceOne(null);
         setChoiceTwo(null);
-        setFlippedCards([]); // Reset flipped cards
+        setFlippedCards([]);
     };
 
     // Handle a card choice
     const handleChoice = (card) => {
         if (!choiceOne) {
             setChoiceOne(card);
-            setFlippedCards((prev) => [...prev, card.id]); // Flip the card
+            setFlippedCards(prev => [...prev, card.id]);
+            audio.flip.play(); // Play flip sound
         } else if (!choiceTwo && card.id !== choiceOne.id) {
             setChoiceTwo(card);
-            setFlippedCards((prev) => [...prev, card.id]); // Flip the card
+            setFlippedCards(prev => [...prev, card.id]);
+            audio.flip.play(); // Play flip sound
         }
     };
 
@@ -54,10 +74,12 @@ function App() {
     useEffect(() => {
         if (choiceOne && choiceTwo) {
             if (choiceOne.src === choiceTwo.src) {
+                audio.match.play(); // Play match sound
                 resetTurn(); // Cards match
             } else {
                 const timeout = setTimeout(() => {
-                    setFlippedCards((prev) => prev.filter(id => id !== choiceOne.id && id !== choiceTwo.id)); // Unflip cards
+                    setFlippedCards(prev => prev.filter(id => id !== choiceOne.id && id !== choiceTwo.id)); // Unflip cards
+                    audio.mismatch.play(); // Play mismatch sound
                     resetTurn(); // Reset choices
                 }, 1000);
                 return () => clearTimeout(timeout); // Cleanup timeout
@@ -65,10 +87,17 @@ function App() {
         }
     }, [choiceOne, choiceTwo]);
 
+    // Check for winning condition
+    useEffect(() => {
+        if (turns === (cardImages.length)) { // Example winning condition based on turns
+            audio.win.play(); // Play win sound
+        }
+    }, [turns]);
+
     // Start a new game automatically
     useEffect(() => {
-        shuffleCards();
-    }, []);
+        shuffleCards(); // Call shuffleCards when component mounts
+    }, [shuffleCards]); // Include shuffleCards in the dependency array
 
     return (
         <div className="App">
